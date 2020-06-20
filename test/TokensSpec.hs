@@ -10,7 +10,12 @@ r = Hraswa 'ऋ'
 e = Deergha 'ए'; ai = Deergha 'ऐ'
 o = Deergha 'ओ'; au = Deergha 'औ'
 
+candrawindu = PostVowelMarker 'ँ'
+anuswar = PostVowelMarker 'ं'
+wisarga = PostVowelMarker 'ः'
+
 ka = Consonant 'क'
+kha = Consonant 'ख'
 ca = Consonant 'च'
 cha = Consonant 'छ'
 ja = Consonant 'ज'
@@ -18,11 +23,13 @@ nya = Consonant 'ञ'
 nNa = Consonant 'ण'
 ta = Consonant 'त'
 da = Consonant 'द'
+na = Consonant 'न'
 ma = Consonant 'म'
 ya = Consonant 'य'
 ra = Consonant 'र'
 wa = Consonant 'व'
 sha = Consonant 'ष'
+sSha = Consonant 'श'
 
 spec :: Spec
 spec = do
@@ -51,7 +58,7 @@ spec = do
     it "मर्म्माणिते व्वर्म्मणाच्छादयामि" $
       lexer "मर्म्माणिते व्वर्म्मणाच्छादयामि" `shouldBe` [ma, a, ra, ma, ma, aa, nNa, i, ta, e, T_Space]
         ++ [ wa, wa, a, ra, ma, ma, a, nNa, aa, ca, cha, aa, da, a, ya, aa, ma, i]
-  describe "vowel marker" $ do
+  describe "vowel marker to vowel" $ do
     it "का should be क् आ" $
       lexer "का" `shouldBe` [ka, aa]
     it "कि should be क् इ" $
@@ -72,6 +79,16 @@ spec = do
       lexer "को" `shouldBe` [ka, o]
     it "कौ should be क् औ" $
       lexer "कौ" `shouldBe` [ka, au]
+  describe "post-vowel marker" $ do
+    it "chandrawindu" $ do
+      lexer "काँच" `shouldBe` [ka, aa, candrawindu, ca, a]
+      lexer "मायाँ" `shouldBe` [ma, aa, ya, aa, candrawindu]
+    it "anuswar" $ do
+      lexer "कंश" `shouldBe` [ka, a, anuswar, sSha, a]
+      lexer "अंश" `shouldBe` [a, anuswar, sSha, a]
+    it "wisarga" $ do
+      lexer "नमः" `shouldBe` [na, a, ma, a, wisarga]
+      lexer "दुःख" `shouldBe` [da, u, wisarga, kha, a]
   describe "unknown tokens" $ do
     it "ash should be U U U" $
       lexer "ash" `shouldBe` [T_Unknown, T_Unknown, T_Unknown]
