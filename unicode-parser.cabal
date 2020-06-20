@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9aa923d6b9ed4b7205920bfddc542f1a1cac0b1e242621479362723c0bf30e1a
+-- hash: 4408ff8456cf11a48aabbf00e5f182ee3807c6a5c4db1c8cae9a8bd77d21fa81
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -35,6 +35,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , unicode-show
   default-language: Haskell2010
 
 executable unicode-parser-exe
@@ -47,6 +48,7 @@ executable unicode-parser-exe
   build-depends:
       base >=4.7 && <5
     , unicode-parser
+    , unicode-show
   default-language: Haskell2010
 
 test-suite unicode-parser-test
@@ -64,4 +66,5 @@ test-suite unicode-parser-test
     , hspec
     , hspec-discover
     , unicode-parser
+    , unicode-show
   default-language: Haskell2010

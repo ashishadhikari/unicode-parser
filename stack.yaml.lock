@@ -18,6 +18,13 @@ packages:
       sha256: 2d1c4ccbd0c9047311d1bd24989714df844003c258964ef65d542f6627dc0fed
   original:
     hackage: hspec-discover-2.7.1
+- completed:
+    hackage: unicode-show-0.1.0.4@sha256:6c480cc37ac152b4cc8725194cd22e27d80a943bf0076d19c8ad7272b2edc886,1599
+    pantry-tree:
+      size: 274
+      sha256: 7ddaab1ad0a7ae7d0db561a6e758626e6f2be8979f349efe6fabdbd038348704
+  original:
+    hackage: unicode-show-0.1.0.4
 snapshots:
 - completed:
     size: 496120

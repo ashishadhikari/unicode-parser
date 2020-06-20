@@ -43,6 +43,7 @@ packages:
 extra-deps:
   - hspec-2.7.1
   - hspec-discover-2.7.1
+  - unicode-show-0.1.0.4
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

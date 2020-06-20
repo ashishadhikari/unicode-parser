@@ -14,6 +14,16 @@ isVowel c
   | c <= 'औ' = True
   | otherwise = False
 
+isHraswa :: Char -> Bool
+isHraswa 'अ' = True
+isHraswa 'इ' = True
+isHraswa 'उ' = True
+isHraswa 'ऋ' = True
+isHraswa _ = False
+
+isDeergha :: Char -> Bool
+isDeergha c = isVowel c && not (isHraswa c)
+
 isVowelMarker :: Char -> Bool
 isVowelMarker c = c /= markerToVowel c
 
