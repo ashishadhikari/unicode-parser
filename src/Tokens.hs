@@ -2,7 +2,7 @@ module Tokens where
 
 import qualified NepaliUnicode as NU
 
--- TODO rename Token to Warna, then it can be fed into another lexer accepting Warna list
+-- TODO rename Token to Warna (वर्ण), then it can be fed into another lexer accepting Warna list
 -- to produce Akshara
 data Token =
   T_Unknown
@@ -13,11 +13,7 @@ data Token =
   | T_a | T_aa | T_i | T_ii | T_u | T_uu
   | T_R | T_L
   | T_e | T_ai | T_o | T_au
--- Vowel Markers
-  | T_m_aa | T_m_i | T_m_ii | T_m_u | T_m_uu
-  | T_m_R | T_m_L
-  | T_m_e | T_m_ai | T_m_o | T_m_au
--- Other markers
+-- Markers
   | T_m_candrawindu
   | T_m_anuswar
   | T_m_wisarga
@@ -44,14 +40,7 @@ charToToken 'उ' = T_u; charToToken 'ऊ' = T_uu
 charToToken 'ऋ' = T_R; charToToken 'ऌ' = T_L
 charToToken 'ए' = T_e; charToToken 'ऐ' = T_ai
 charToToken 'ओ' = T_o; charToToken 'औ' = T_au
---Vowel markers
-charToToken 'ा' = T_m_aa
-charToToken 'ि' = T_m_i; charToToken 'ी' = T_m_ii
-charToToken 'ु' = T_m_u; charToToken 'ू' = T_m_uu
-charToToken 'ृ' = T_m_R; charToToken 'ॢ' = T_m_L
-charToToken 'े' = T_m_e; charToToken 'ै' = T_m_ai
-charToToken 'ो' = T_m_o; charToToken 'ौ' = T_m_au
---Other markers
+--Markers
 charToToken 'ँ' = T_m_candrawindu
 charToToken 'ं' = T_m_anuswar
 charToToken 'ः' = T_m_wisarga
