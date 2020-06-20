@@ -55,3 +55,6 @@ spec = do
       lexer "ash" `shouldBe` [T_Unknown, T_Unknown, T_Unknown]
     it "क1 should be क् अ U" $
       lexer "क1" `shouldBe` [T_ka, T_a, T_Unknown]
+  describe "multiline text" $
+    it "को\nआयो should be U U U" $
+      multiLineLexer "को\nआयो" `shouldBe` [[T_ka, T_o], [T_aa, T_ya, T_o]]

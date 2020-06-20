@@ -5,6 +5,9 @@ import qualified GHC.Unicode as GhcUnicode
 isConsonant :: Char -> Bool
 isConsonant c = any ($c) [isStop, isSemiVowel, isSibilant]
 
+isNewline :: Char -> Bool
+isNewline c = c == '\n'
+
 isVowel :: Char -> Bool
 isVowel c
   | c <= 'अ' = False

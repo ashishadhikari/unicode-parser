@@ -2,10 +2,13 @@ module Tokens where
 
 import qualified NepaliUnicode as NU
 
+-- TODO rename Token to Warna, then it can be fed into another lexer accepting Warna list
+-- to produce Akshara
 data Token =
   T_Unknown
 -- Space
   | T_Space
+  | T_Newline
 -- Vowels
   | T_a | T_aa | T_i | T_ii | T_u | T_uu
   | T_R | T_L
@@ -62,6 +65,9 @@ charToToken 'य' = T_ya; charToToken 'र' = T_ra; charToToken 'ल' = T_la; ch
 charToToken 'श' = T_Sha; charToToken 'ष' = T_sha; charToToken 'स' = T_sa; charToToken 'ह' = T_ha
 --Fallback
 charToToken _ = T_Unknown
+
+multiLineLexer :: String -> [[Token]]
+multiLineLexer multiLineString = map lexer (lines multiLineString)
 
 lexer :: String -> [Token]
 lexer [] = []
