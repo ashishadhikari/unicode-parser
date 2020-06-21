@@ -5,7 +5,7 @@ module Main (
 import Control.Monad (unless)
 import Data.List (stripPrefix)
 import System.Exit (exitFailure)
-import Tokens
+import Warna
 
 main = do putStr "Hello, World!"
 

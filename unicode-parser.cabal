@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4408ff8456cf11a48aabbf00e5f182ee3807c6a5c4db1c8cae9a8bd77d21fa81
+-- hash: c138bde29c04efcced37176ea6047bb9bf34f0b20ab90e985f06946391c41a90
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -28,7 +28,7 @@ source-repository head
 library
   exposed-modules:
       NepaliUnicode
-      Tokens
+      Warna
   other-modules:
       Paths_unicode_parser
   hs-source-dirs:
@@ -56,7 +56,7 @@ test-suite unicode-parser-test
   main-is: Spec.hs
   other-modules:
       NepaliUnicodeSpec
-      TokensSpec
+      WarnaSpec
       Paths_unicode_parser
   hs-source-dirs:
       test

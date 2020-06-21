@@ -1,7 +1,7 @@
-module TokensSpec where
+module WarnaSpec where
 
 import Test.Hspec
-import Tokens
+import Warna
 
 a = Hraswa 'अ'; aa = Deergha 'आ'
 i = Hraswa 'इ'; ii = Deergha 'ई'
@@ -54,9 +54,9 @@ spec = do
       lexer "ज्ञ" `shouldBe` [ja, nya, a]
   describe "multiple words" $ do
     it "कति राम्रो should be क् अ त् इ <Space> र् आ म् र् ओ" $
-      lexer "कति राम्रो" `shouldBe` [ka, a, ta, i, T_Space, ra, aa, ma, ra, o]
+      lexer "कति राम्रो" `shouldBe` [ka, a, ta, i, Space, ra, aa, ma, ra, o]
     it "मर्म्माणिते व्वर्म्मणाच्छादयामि" $
-      lexer "मर्म्माणिते व्वर्म्मणाच्छादयामि" `shouldBe` [ma, a, ra, ma, ma, aa, nNa, i, ta, e, T_Space]
+      lexer "मर्म्माणिते व्वर्म्मणाच्छादयामि" `shouldBe` [ma, a, ra, ma, ma, aa, nNa, i, ta, e, Space]
         ++ [ wa, wa, a, ra, ma, ma, a, nNa, aa, ca, cha, aa, da, a, ya, aa, ma, i]
   describe "vowel marker to vowel" $ do
     it "का should be क् आ" $
@@ -91,9 +91,9 @@ spec = do
       lexer "दुःख" `shouldBe` [da, u, wisarga, kha, a]
   describe "unknown tokens" $ do
     it "ash should be U U U" $
-      lexer "ash" `shouldBe` [T_Unknown, T_Unknown, T_Unknown]
+      lexer "ash" `shouldBe` [Unknown, Unknown, Unknown]
     it "क1 should be क् अ U" $
-      lexer "क1" `shouldBe` [ka, a, T_Unknown]
+      lexer "क1" `shouldBe` [ka, a, Unknown]
   describe "multiline text" $
     it "को\nआयो should be U U U" $
       multiLineLexer "को\nआयो" `shouldBe` [[ka, o], [aa, ya, o]]

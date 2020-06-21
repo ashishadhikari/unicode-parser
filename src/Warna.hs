@@ -1,49 +1,47 @@
-module Tokens where
+module Warna where
 
 import qualified NepaliUnicode as NU
 import qualified Text.Show.Unicode as TSU
 
--- TODO rename Token to Warna (वर्ण), then it can be fed into another lexer accepting Warna list
--- to produce Akshara
-data Token =
-    T_Unknown
-  | T_Space
-  | T_Newline
+data Warna =
+    Unknown
+  | Space
+  | Newline
   | Hraswa Char
   | Deergha Char
   | PostVowelMarker Char
   | Consonant Char
   deriving (Eq)
 
-instance Show Token where
+instance Show Warna where
   show (Hraswa c) = TSU.ushow c
   show (Deergha c) = TSU.ushow c
   show (Consonant c) = TSU.ushow c
   show (PostVowelMarker c) = TSU.ushow c
-  show T_Space = show ' '
-  show T_Newline = show '\n'
-  show T_Unknown = TSU.ushow '☐'
+  show Space = show ' '
+  show Newline = show '\n'
+  show Unknown = TSU.ushow '☐'
 
-charToToken :: Char -> Token
+charToToken :: Char -> Warna
 charToToken c
-  | NU.isSpace c = T_Space
+  | NU.isSpace c = Space
   | NU.isHraswa c = Hraswa c
   | NU.isDeergha c = Deergha c
   | NU.isConsonant c = Consonant c
   | NU.isPostVowelMarker c = PostVowelMarker c
-  | otherwise = T_Unknown
+  | otherwise = Unknown
 
-multiLineLexer :: String -> [[Token]]
+multiLineLexer :: String -> [[Warna]]
 multiLineLexer multiLineString = map lexer (lines multiLineString)
 
-lexer :: String -> [Token]
+lexer :: String -> [Warna]
 lexer [] = []
-lexer (c:cs) 
-      | NU.isSpace c = T_Space : lexer cs
+lexer (c:cs)
+      | NU.isSpace c = Space : lexer cs
       | NU.isConsonant c = lexConsonant c cs
 lexer (c:cs) = charToToken c : lexer cs
 
-lexConsonant :: Char -> String -> [Token]
+lexConsonant :: Char -> String -> [Warna]
 lexConsonant c [] = [charToToken c, Hraswa 'अ']
 lexConsonant c (c':c's)
   | NU.isVowelMarker c' = charToToken c : charToToken (NU.markerToVowel c') : lexer c's
