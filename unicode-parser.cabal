@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c138bde29c04efcced37176ea6047bb9bf34f0b20ab90e985f06946391c41a90
+-- hash: ea31eb67f7e2d7f783e6fab5fe0a5c70c27d3b682ddfc93e9d8745c8be634999
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -27,6 +27,7 @@ source-repository head
 
 library
   exposed-modules:
+      Akshara
       NepaliUnicode
       Warna
   other-modules:
