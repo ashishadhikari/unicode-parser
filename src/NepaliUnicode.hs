@@ -10,7 +10,7 @@ isNewline c = c == '\n'
 
 isVowel :: Char -> Bool
 isVowel c
-  | c <= 'अ' = False
+  | c < 'अ' = False
   | c <= 'औ' = True
   | otherwise = False
 

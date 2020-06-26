@@ -6,12 +6,34 @@ import qualified Text.Show.Unicode as TSU
 data Warna =
     Unknown
   | Space
-  | Newline
   | Hraswa Char
   | Deergha Char
   | PostVowelMarker Char
   | Consonant Char
   deriving (Eq)
+
+isSpace :: Warna -> Bool
+isSpace Space = True
+isSpace _ = False
+
+isVowel :: Warna -> Bool
+isVowel w = any ($w) [isHraswa, isDeergha]
+
+isHraswa :: Warna -> Bool
+isHraswa (Hraswa _) = True
+isHraswa _ = False
+
+isDeergha :: Warna -> Bool
+isDeergha (Deergha _) = True
+isDeergha _ = False
+
+isPostVowelMarker :: Warna -> Bool
+isPostVowelMarker (PostVowelMarker _) = True
+isPostVowelMarker _ = False
+
+isConsonant :: Warna -> Bool
+isConsonant (Consonant _) = True
+isConsonant _ = False
 
 instance Show Warna where
   show (Hraswa c) = TSU.ushow c
@@ -19,7 +41,6 @@ instance Show Warna where
   show (Consonant c) = TSU.ushow c
   show (PostVowelMarker c) = TSU.ushow c
   show Space = show ' '
-  show Newline = show '\n'
   show Unknown = TSU.ushow '☐'
 
 charToToken :: Char -> Warna

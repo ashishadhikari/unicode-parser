@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ea31eb67f7e2d7f783e6fab5fe0a5c70c27d3b682ddfc93e9d8745c8be634999
+-- hash: 671a99031756f7ee435c947239cb9821244b0a4ac8202a023c9e1f10f8881899
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -56,6 +56,7 @@ test-suite unicode-parser-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      AksharaSpec
       NepaliUnicodeSpec
       WarnaSpec
       Paths_unicode_parser
