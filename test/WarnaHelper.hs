@@ -15,3 +15,5 @@ import Warna
 candrawindu = PostVowelMarker 'ँ'
 anuswar = PostVowelMarker 'ं'
 wisarga = PostVowelMarker 'ः'
+
+space = Space

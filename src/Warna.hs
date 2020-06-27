@@ -33,6 +33,7 @@ isPostVowelMarker (PostVowelMarker c) = case c of
   'ं' -> True
   'ः' -> True
   _ -> False
+isPostVowelMarker _ = False
 
 isConsonant :: Warna -> Bool
 isConsonant (Consonant c)

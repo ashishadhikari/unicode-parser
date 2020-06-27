@@ -17,6 +17,12 @@ spec = do
         Akshara [ka] aa (Just candrawindu) [ka],
         Akshara [ra] o Nothing []
       ]
+  describe "Space" $ do
+    it "should be skipped" $
+      toAkshara [la, u, space, ta, a] `shouldBe` [
+        Akshara [la] u Nothing [],
+        Akshara [ta] a Nothing []
+      ]
   describe "Akshara complex" $ do
     it "marmmanite" $
       toAkshara [ma, a, ra, ma, ma, aa, nNa, i, ta, e] `shouldBe` [

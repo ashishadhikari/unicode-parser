@@ -4,8 +4,6 @@ import qualified Warna
 
 data Akshara =
     Unknown
-  | Space
-  | Newline
   | Akshara {
     preConsonants :: [Warna.Warna],
     vowel :: Warna.Warna,
@@ -56,7 +54,7 @@ toAksharaWithContext (Right a) (w:ws)
   | Warna.isConsonant w = toAksharaConsonant (Right a) (w:ws)
   | Warna.isVowel w = toAksharaVowel (Right a) (w:ws)
   | Warna.isPostVowelMarker w = toAksharaPostVowelMarker a (w:ws)
-  | Warna.isSpace w = a : Space : toAksharaWithContext (Left []) ws
+  | Warna.isSpace w = a : toAksharaWithContext (Left []) ws
   | otherwise = a : Unknown : toAksharaWithContext (Left []) ws
 
 toAksharaConsonant :: Either [Warna.Warna] Akshara -> [Warna.Warna] -> [Akshara]
