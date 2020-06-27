@@ -17,14 +17,12 @@ data Akshara =
     postConsonants :: [Warna.Warna]
   } deriving (Show, Eq)
 
-isLaghu :: Akshara -> Maybe Akshara -> Bool
-isLaghu (Akshara _ v Nothing []) Nothing = Warna.isHraswa v
-isLaghu (Akshara _ v Nothing []) (Just (Akshara [] _ _ _)) = Warna.isHraswa v
-isLaghu (Akshara _ v Nothing []) (Just (Akshara [_] _ _ _)) = Warna.isHraswa v
-isLaghu _ _ = False
+isLaghu :: Akshara -> Bool
+isLaghu (Akshara _ v Nothing []) = Warna.isHraswa v
+isLaghu _ = False
 
-isGuru :: Akshara -> Maybe Akshara -> Bool
-isGuru a mA = not (isLaghu a mA)
+isGuru :: Akshara -> Bool
+isGuru a = not $ isLaghu a
 
 fromPreConsAndVowel :: [Warna.Warna] -> Warna.Warna -> Akshara
 fromPreConsAndVowel preConsonants vowel = Akshara preConsonants vowel Nothing []
