@@ -2,34 +2,7 @@ module WarnaSpec where
 
 import Test.Hspec
 import Warna
-
-a = Hraswa 'अ'; aa = Deergha 'आ'
-i = Hraswa 'इ'; ii = Deergha 'ई'
-u = Hraswa 'उ'; uu = Deergha 'ऊ'
-r = Hraswa 'ऋ'
-e = Deergha 'ए'; ai = Deergha 'ऐ'
-o = Deergha 'ओ'; au = Deergha 'औ'
-
-candrawindu = PostVowelMarker 'ँ'
-anuswar = PostVowelMarker 'ं'
-wisarga = PostVowelMarker 'ः'
-
-ka = Consonant 'क'
-kha = Consonant 'ख'
-ca = Consonant 'च'
-cha = Consonant 'छ'
-ja = Consonant 'ज'
-nya = Consonant 'ञ'
-nNa = Consonant 'ण'
-ta = Consonant 'त'
-da = Consonant 'द'
-na = Consonant 'न'
-ma = Consonant 'म'
-ya = Consonant 'य'
-ra = Consonant 'र'
-wa = Consonant 'व'
-sha = Consonant 'ष'
-sSha = Consonant 'श'
+import WarnaHelper
 
 spec :: Spec
 spec = do
@@ -91,9 +64,9 @@ spec = do
       lexer "दुःख" `shouldBe` [da, u, wisarga, kha, a]
   describe "unknown tokens" $ do
     it "ash should be U U U" $
-      lexer "ash" `shouldBe` [Unknown, Unknown, Unknown]
+      lexer "ash" `shouldBe` [Unknown 'a', Unknown 's', Unknown 'h']
     it "क1 should be क् अ U" $
-      lexer "क1" `shouldBe` [ka, a, Unknown]
+      lexer "क1" `shouldBe` [ka, a, Unknown '1']
   describe "multiline text" $
     it "को\nआयो should be U U U" $
       multiLineLexer "को\nआयो" `shouldBe` [[ka, o], [aa, ya, o]]

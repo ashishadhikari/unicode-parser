@@ -1,38 +1,9 @@
 module AksharaSpec where
 
 import Test.Hspec
-import Warna
+import WarnaHelper
 import Akshara
 
---TODO: clean up duplicate test setup
-
-a = Hraswa 'अ'; aa = Deergha 'आ'
-i = Hraswa 'इ'; ii = Deergha 'ई'
-u = Hraswa 'उ'; uu = Deergha 'ऊ'
-r = Hraswa 'ऋ'
-e = Deergha 'ए'; ai = Deergha 'ऐ'
-o = Deergha 'ओ'; au = Deergha 'औ'
-
-candrawindu = PostVowelMarker 'ँ'
-anuswar = PostVowelMarker 'ं'
-wisarga = PostVowelMarker 'ः'
-
-ka = Consonant 'क'
-kha = Consonant 'ख'
-ca = Consonant 'च'
-cha = Consonant 'छ'
-ja = Consonant 'ज'
-nya = Consonant 'ञ'
-nNa = Consonant 'ण'
-ta = Consonant 'त'
-da = Consonant 'द'
-na = Consonant 'न'
-ma = Consonant 'म'
-ya = Consonant 'य'
-ra = Consonant 'र'
-wa = Consonant 'व'
-sha = Consonant 'ष'
-sSha = Consonant 'श'
 
 spec :: Spec
 spec = do
