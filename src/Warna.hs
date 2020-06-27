@@ -1,8 +1,17 @@
-module Warna where
+module Warna (
+  Warna(..),
+  lexer,
+  multiLineLexer,
+  isVowel,
+  isPostVowelMarker,
+  isConsonant,
+  isSpace,
+  isHraswa,
+  isDeergha
+) where
 
 import qualified Text.Show.Unicode as TSU
 import qualified GHC.Unicode as GhcUnicode
-
 
 data Warna
   = Vowel Char

@@ -41,3 +41,23 @@ spec = do
         Akshara [ya] aa Nothing [],
         Akshara [ma] i Nothing []
       ]
+  describe "Laghu" $ do
+    it "just Hraswa vowel" $
+      isLaghu (Akshara [] a Nothing []) Nothing `shouldBe` True
+    it "Hraswa vowel with pre-consonant" $
+      isLaghu (Akshara [ka] a Nothing []) Nothing `shouldBe` True
+    it "Hraswa vowel with pre-consonant followed by just vowel" $
+      isLaghu (Akshara [ka] a Nothing []) (Just (Akshara [] aa Nothing [])) `shouldBe` True
+    it "Hraswa vowel with pre-consonant followed by vowel and one pre-consonant" $
+      isLaghu (Akshara [ka] a Nothing []) (Just (Akshara [ta] aa Nothing [])) `shouldBe` True
+  describe "Deergha" $ do
+    it "just Deergha vowel" $
+      isGuru (Akshara [] aa Nothing []) Nothing `shouldBe` True
+    it "Deergha vowel with pre-consonant" $
+      isGuru (Akshara [ka] ii Nothing []) Nothing `shouldBe` True
+    it "Hraswa vowel with post-vowel marker" $
+      isGuru (Akshara [] a (Just candrawindu) []) Nothing `shouldBe` True
+    it "Hraswa vowel with post-consonant" $
+      isGuru (Akshara [] a Nothing [ca]) Nothing `shouldBe` True
+    it "Hraswa vowel, followed by an Akshara with two pre-consonants" $
+      isGuru (Akshara [] a Nothing []) (Just (Akshara [ka, kha] a Nothing [])) `shouldBe` True

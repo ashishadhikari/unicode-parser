@@ -1,4 +1,10 @@
-module Akshara where
+module Akshara (
+  Akshara(..),
+  toAkshara,
+  toAksharaMultiLine,
+  isLaghu,
+  isGuru,
+) where
 
 import qualified Warna
 
@@ -10,6 +16,15 @@ data Akshara =
     postVowelMarker :: Maybe Warna.Warna,
     postConsonants :: [Warna.Warna]
   } deriving (Show, Eq)
+
+isLaghu :: Akshara -> Maybe Akshara -> Bool
+isLaghu (Akshara _ v Nothing []) Nothing = Warna.isHraswa v
+isLaghu (Akshara _ v Nothing []) (Just (Akshara [] _ _ _)) = Warna.isHraswa v
+isLaghu (Akshara _ v Nothing []) (Just (Akshara [_] _ _ _)) = Warna.isHraswa v
+isLaghu _ _ = False
+
+isGuru :: Akshara -> Maybe Akshara -> Bool
+isGuru a mA = not (isLaghu a mA)
 
 fromPreConsAndVowel :: [Warna.Warna] -> Warna.Warna -> Akshara
 fromPreConsAndVowel preConsonants vowel = Akshara preConsonants vowel Nothing []
