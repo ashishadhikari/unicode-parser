@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4b619005db5957260f7f3e935bf82b0d9a8f0fb399cc2a66392be9180d47fba4
+-- hash: c2191b1120018c5a11c6d8299785c7f9809db46b9377f07858a446ba41114fc3
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       Akshara
+      Gana
       Warna
   other-modules:
       Paths_unicode_parser
@@ -35,6 +36,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , split
     , unicode-show
   default-language: Haskell2010
 
@@ -47,6 +49,7 @@ executable unicode-parser-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , split
     , unicode-parser
     , unicode-show
   default-language: Haskell2010
@@ -56,6 +59,7 @@ test-suite unicode-parser-test
   main-is: Spec.hs
   other-modules:
       AksharaSpec
+      GanaSpec
       WarnaHelper
       WarnaSpec
       Paths_unicode_parser
@@ -66,6 +70,7 @@ test-suite unicode-parser-test
       base >=4.7 && <5
     , hspec
     , hspec-discover
+    , split
     , unicode-parser
     , unicode-show
   default-language: Haskell2010
