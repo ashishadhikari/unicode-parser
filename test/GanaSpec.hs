@@ -44,3 +44,5 @@ spec = do
       stringToGana "ल" `shouldBe` [Gana L]
     it "G matra" $
       stringToGana "गम्" `shouldBe` [Gana G]
+    it "long sentence" $
+      stringToGana "इच्छा यो छ महेश अन्तिम जसै त्यो मृत्युशैया जली" `shouldBe` [M, S, J, S, T, T, Gana G]
