@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 module Gana (
   Matra(..),
   Gana(..),
@@ -5,14 +8,16 @@ module Gana (
   toGana
 ) where
 
+import GHC.Generics
+import Data.Aeson
 import Akshara
 import qualified Data.List.Split
 
 data Matra = L | G
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic, ToJSON)
 
 data Gana = Y | M | T | R | J | B | N | S | Gana Matra
-  deriving (Show, Eq)
+  deriving (Show, Eq, Generic, ToJSON)
 
 toMatraSingle :: Akshara -> Matra
 toMatraSingle a

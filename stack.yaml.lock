@@ -5,6 +5,20 @@
 
 packages:
 - completed:
+    hackage: aeson-1.4.7.1@sha256:6d8d2fd959b7122a1df9389cf4eca30420a053d67289f92cdc0dbc0dab3530ba,7098
+    pantry-tree:
+      size: 40133
+      sha256: caa9306e519c601ab0170d113daa03c1163db53e5466be2968bbd61a771bebcb
+  original:
+    hackage: aeson-1.4.7.1
+- completed:
+    hackage: aws-lambda-haskell-runtime-3.0.0@sha256:1de27f1a3bdb85da3ebbc8a4f424c70fc72015c25cd22b13b79f4fa8dace30ff,3015
+    pantry-tree:
+      size: 1560
+      sha256: ce4852719b9a5e22d4d050b2e55a3e8b93a411e1ecf97d3a87ee46c705262f00
+  original:
+    hackage: aws-lambda-haskell-runtime-3.0.0
+- completed:
     hackage: hspec-2.7.1@sha256:0aa48928ce80a34f8ff8c5ef114bb6807edfb8d884bcd7211eceed710e7fb7a8,1769
     pantry-tree:
       size: 532

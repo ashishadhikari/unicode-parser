@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 module Warna (
   Warna(..),
   lexer,
@@ -12,6 +15,8 @@ module Warna (
 
 import qualified Text.Show.Unicode as TSU
 import qualified GHC.Unicode as GhcUnicode
+import GHC.Generics
+import Data.Aeson
 
 data Warna
   = Vowel Char
@@ -19,7 +24,7 @@ data Warna
   | Consonant Char
   | Space
   | Unknown Char
-  deriving (Eq)
+  deriving (Eq, Generic, ToJSON)
 
 isSpace :: Warna -> Bool
 isSpace Space = True

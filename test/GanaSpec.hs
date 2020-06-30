@@ -2,7 +2,6 @@ module GanaSpec where
 
 import Test.Hspec
 import Warna
-import WarnaHelper
 import Akshara
 import Gana
 
@@ -44,5 +43,7 @@ spec = do
       stringToGana "ल" `shouldBe` [Gana L]
     it "G matra" $
       stringToGana "गम्" `shouldBe` [Gana G]
-    it "long sentence" $
+    it "long sentence 1" $
       stringToGana "इच्छा यो छ महेश अन्तिम जसै त्यो मृत्युशैया जली" `shouldBe` [M, S, J, S, T, T, Gana G]
+    it "long sentence 2" $
+      stringToGana "अक्षस्त्रक्परशुम् गदेषु कुलिशम् पद्मम् धनुष्कुण्डिकाम्" `shouldBe` [M, S, J, S, T, T, Gana G]

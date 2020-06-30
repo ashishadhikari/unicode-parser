@@ -21,6 +21,8 @@ description:         Please see the README on GitHub at <https://github.com/Gith
 
 dependencies:
 - base >= 4.7 && < 5
+- aeson >= 1.4.7.1
+- aws-lambda-haskell-runtime >= 3.0.0
 - unicode-show
 - split
 
@@ -28,15 +30,28 @@ library:
   source-dirs: src
 
 executables:
-  unicode-parser-exe:
+#  unicode-parser-exe:
+#    main:                Main.hs
+#    source-dirs:         app
+#    ghc-options:
+#    - -threaded
+#    - -rtsopts
+#    - -with-rtsopts=-N
+#    dependencies:
+#    - unicode-parser
+  bootstrap:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -O2
+      - -static
+      - -with-rtsopts=-N
+    cc-options: -static
+    ld-options: -static -pthread
     dependencies:
-    - unicode-parser
+      - unicode-parser
 
 tests:
   unicode-parser-test:

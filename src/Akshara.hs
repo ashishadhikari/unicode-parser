@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveAnyClass #-}
+
 module Akshara (
   Akshara(..),
   toAkshara,
@@ -7,6 +10,8 @@ module Akshara (
 ) where
 
 import qualified Warna
+import GHC.Generics
+import Data.Aeson
 
 data Akshara =
     Unknown
@@ -15,7 +20,7 @@ data Akshara =
     vowel :: Warna.Warna,
     postVowelMarker :: Maybe Warna.Warna,
     postConsonants :: [Warna.Warna]
-  } deriving (Show, Eq)
+  } deriving (Show, Eq, Generic, ToJSON)
 
 isLaghu :: Akshara -> Bool
 isLaghu (Akshara _ v Nothing []) = Warna.isHraswa v
