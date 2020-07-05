@@ -1,17 +1,15 @@
-{-# LANGUAGE DeriveGeneric  #-}
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Akshara (
   Akshara(..),
   toAkshara,
   toAksharaMultiLine,
   isLaghu,
   isGuru,
+  toCodePoints,
 ) where
 
 import qualified Warna
-import GHC.Generics
-import Data.Aeson
+import qualified Data.Text as T
+import qualified Text.Show.Unicode as TSU
 
 data Akshara =
     Unknown
@@ -20,7 +18,18 @@ data Akshara =
     vowel :: Warna.Warna,
     postVowelMarker :: Maybe Warna.Warna,
     postConsonants :: [Warna.Warna]
-  } deriving (Show, Eq, Generic, ToJSON)
+  } deriving (Eq)
+
+instance Show Akshara where
+  show = toString
+
+toString :: Akshara -> String
+toString Unknown = "☐"
+toString (Akshara preCs v Nothing postCs) = Warna.toChars(preCs ++ [v] ++ postCs)
+toString (Akshara preCs v (Just postVM) postCs) = Warna.toChars(preCs ++ [v] ++ [postVM] ++ postCs)
+
+toCodePoints :: Akshara -> [Int]
+toCodePoints = map fromEnum . toString
 
 isLaghu :: Akshara -> Bool
 isLaghu (Akshara _ v Nothing []) = Warna.isHraswa v

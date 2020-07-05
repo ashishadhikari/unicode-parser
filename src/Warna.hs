@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveGeneric  #-}
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Warna (
   Warna(..),
   lexer,
@@ -10,13 +7,14 @@ module Warna (
   isConsonant,
   isSpace,
   isHraswa,
-  isDeergha
+  isDeergha,
+  toChars,
 ) where
 
 import qualified Text.Show.Unicode as TSU
 import qualified GHC.Unicode as GhcUnicode
-import GHC.Generics
-import Data.Aeson
+
+type CodePoint = Int
 
 data Warna
   = Vowel Char
@@ -24,7 +22,7 @@ data Warna
   | Consonant Char
   | Space
   | Unknown Char
-  deriving (Eq, Generic, ToJSON)
+  deriving (Eq)
 
 isSpace :: Warna -> Bool
 isSpace Space = True
@@ -77,11 +75,17 @@ markerToVowel c = case c of
   c -> c
 
 instance Show Warna where
-  show (Vowel c) = TSU.ushow c
-  show (Consonant c) = TSU.ushow c
-  show (PostVowelMarker c) = TSU.ushow c
-  show Space = show ' '
-  show (Unknown c) = TSU.ushow c
+  show w = TSU.ushow (toChar w)
+
+toChar :: Warna -> Char
+toChar (Vowel c) = c
+toChar (Consonant c) = c
+toChar (PostVowelMarker c) = c
+toChar Space = ' '
+toChar (Unknown c) = c
+
+toChars :: [Warna] -> String
+toChars = map toChar
 
 charToToken :: Char -> Warna
 charToToken c

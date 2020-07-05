@@ -1,23 +1,20 @@
-{-# LANGUAGE DeriveGeneric  #-}
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Gana (
   Matra(..),
   Gana(..),
   toMatra,
-  toGana
+  toGana,
+  matraToChar,
+  ganaToChar,
 ) where
 
-import GHC.Generics
-import Data.Aeson
 import Akshara
 import qualified Data.List.Split
 
 data Matra = L | G
-  deriving (Show, Eq, Generic, ToJSON)
+  deriving (Show, Eq)
 
 data Gana = Y | M | T | R | J | B | N | S | Gana Matra
-  deriving (Show, Eq, Generic, ToJSON)
+  deriving (Show, Eq)
 
 toMatraSingle :: Akshara -> Matra
 toMatraSingle a
@@ -26,6 +23,22 @@ toMatraSingle a
 
 toMatra :: [Akshara] -> [Matra]
 toMatra = map toMatraSingle
+
+matraToChar :: Matra -> Char
+matraToChar L = 'L'
+matraToChar G = 'G'
+
+ganaToChar :: Gana -> Char
+ganaToChar Y = 'Y'
+ganaToChar M = 'M'
+ganaToChar T = 'T'
+ganaToChar R = 'R'
+ganaToChar J = 'J'
+ganaToChar B = 'B'
+ganaToChar N = 'N'
+ganaToChar S = 'S'
+ganaToChar (Gana L) = 'L'
+ganaToChar (Gana G) = 'G'
 
 toGana :: [Matra] -> [Gana]
 toGana ms = concatMap toGanaFromThreeOrLessMatras (splitMatras ms)

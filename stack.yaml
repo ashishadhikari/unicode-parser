@@ -41,7 +41,8 @@ packages:
 #
 # extra-deps: []
 extra-deps:
-  - aeson-1.4.7.1
+#  - text
+#  - aeson-1.4.7.1
   - aws-lambda-haskell-runtime-3.0.0
   - hspec-2.7.1
   - hspec-discover-2.7.1

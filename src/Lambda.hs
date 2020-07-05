@@ -5,29 +5,45 @@ module Lambda where
 
 import Akshara
 import Aws.Lambda
-import Data.Aeson (ToJSON)
+import Data.Aeson (ToJSON, FromJSON)
 import GHC.Generics
 import Gana
 import Warna
 
+newtype Input
+  = Input {codePoints :: [Int]}
+  deriving (Generic, ToJSON, FromJSON)
+
 data Result = Result
-  { warnas :: [Warna],
-    aksharas :: [Akshara],
-    matras :: [Matra],
-    ganas :: [Gana]
+  { ws :: [Int],
+    as :: [[Int]],
+    ms :: String,
+    gs :: String
   }
   deriving (Generic, ToJSON)
 
-handler :: String -> Context () -> IO (Either String Result)
-handler input context =
-  if length input > 2000
+handler :: Input -> Context () -> IO (Either String Result)
+handler (Input cs) context =
+  if length cs > 2000
     then pure (Left "Input is too long")
-    else pure (Right (createResult input))
+    else pure (Right (createResultV2 (map toEnum cs)))
 
-createResult :: String -> Result
-createResult input =
+createResultV2 :: String -> Result
+createResultV2 input =
   let ws = lexer input
    in let as = toAkshara ws
        in let ms = toMatra as
            in let gs = toGana ms
-               in Result ws as ms gs
+               in Result (toWs ws) (toAs as) (toMs ms) (toGs gs)
+
+toWs :: [Warna] -> [Int]
+toWs = map fromEnum . toChars
+
+toAs :: [Akshara] -> [[Int]]
+toAs = map toCodePoints
+
+toMs :: [Matra] -> String
+toMs = map matraToChar
+
+toGs :: [Gana] -> String
+toGs = map ganaToChar

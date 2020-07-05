@@ -1,10 +1,5 @@
-{-# LANGUAGE DeriveGeneric  #-}
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Chanda where
 
-import GHC.Generics
-import Data.Aeson
 import Gana
 
 chanda :: [Gana] -> ([Gana] -> Bool)
