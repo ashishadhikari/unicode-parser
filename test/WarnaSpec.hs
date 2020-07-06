@@ -2,71 +2,70 @@ module WarnaSpec where
 
 import Test.Hspec
 import Warna
-import WarnaHelper
 
 spec :: Spec
 spec = do
   describe "consonant and vowel marker" $ do
     it "क should be क् अ" $
-      lexer "क" `shouldBe` [ka, a]
+      lexer "क" `shouldBe` ['क', 'अ']
     it "का should be क् आ" $
-      lexer "का" `shouldBe` [ka, aa]
+      lexer "का" `shouldBe` ['क', 'आ']
   describe "consonant and halanta marker" $ do
     it "क् should be क्" $
-      lexer "क्" `shouldBe` [ka]
+      lexer "क्" `shouldBe` ['क']
     it "क्ष should be क् ष्" $
-      lexer "क्ष्" `shouldBe` [ka, sha]
+      lexer "क्ष्" `shouldBe` ['क', 'ष']
     it "त्त् should be त् त्" $
-      lexer "त्त्" `shouldBe` [ta, ta]
+      lexer "त्त्" `shouldBe` ['त', 'त']
   describe "samyuktakshar" $ do
     it "क्ष should be क् ष् अ" $
-      lexer "क्ष" `shouldBe` [ka, sha, a]
+      lexer "क्ष" `shouldBe` ['क', 'ष', 'अ']
     it "त्र should be त् र् अ" $
-      lexer "त्र" `shouldBe` [ta, ra, a]
+      lexer "त्र" `shouldBe` ['त', 'र', 'अ']
     it "ज्ञ should be ज् ञ् अ" $
-      lexer "ज्ञ" `shouldBe` [ja, nya, a]
+      lexer "ज्ञ" `shouldBe` ['ज', 'ञ', 'अ']
   describe "multiple words" $ do
     it "कति राम्रो should be क् अ त् इ <Space> र् आ म् र् ओ" $
-      lexer "कति राम्रो" `shouldBe` [ka, a, ta, i, Space, ra, aa, ma, ra, o]
+      lexer "कति राम्रो" `shouldBe` ['क', 'अ', 'त', 'इ', ' ', 'र', 'आ', 'म', 'र', 'ओ']
     it "मर्म्माणिते व्वर्म्मणाच्छादयामि" $
-      lexer "मर्म्माणिते व्वर्म्मणाच्छादयामि" `shouldBe` [ma, a, ra, ma, ma, aa, nNa, i, ta, e, Space]
-        ++ [ wa, wa, a, ra, ma, ma, a, nNa, aa, ca, cha, aa, da, a, ya, aa, ma, i]
+      lexer "मर्म्माणिते व्वर्म्मणाच्छादयामि" `shouldBe` ['म', 'अ', 'र', 'म', 'म', 'आ', 'ण', 'इ', 'त', 'ए', ' ']
+        ++ [ 'व', 'व', 'अ', 'र', 'म', 'म', 'अ', 'ण', 'आ', 'च', 'छ', 'आ', 'द', 'अ', 'य', 'आ', 'म', 'इ']
   describe "vowel marker to vowel" $ do
     it "का should be क् आ" $
-      lexer "का" `shouldBe` [ka, aa]
+      lexer "का" `shouldBe` ['क', 'आ']
     it "कि should be क् इ" $
-      lexer "कि" `shouldBe` [ka, i]
+      lexer "कि" `shouldBe` ['क', 'इ']
     it "की should be क् ई" $
-      lexer "की" `shouldBe` [ka, ii]
+      lexer "की" `shouldBe` ['क', 'ई']
     it "कु should be क् उ" $
-      lexer "कु" `shouldBe` [ka, u]
+      lexer "कु" `shouldBe` ['क', 'उ']
     it "कू should be क् ऊ" $
-      lexer "कू" `shouldBe` [ka, uu]
+      lexer "कू" `shouldBe` ['क', 'ऊ']
     it "कृ should be क् ऋ" $
-      lexer "कृ" `shouldBe` [ka, r]
+      lexer "कृ" `shouldBe` ['क', 'ऋ']
     it "के should be क् ए" $
-      lexer "के" `shouldBe` [ka, e]
+      lexer "के" `shouldBe` ['क', 'ए']
     it "कै should be क् ऐ" $
-      lexer "कै" `shouldBe` [ka, ai]
+      lexer "कै" `shouldBe` ['क', 'ऐ']
     it "को should be क् ओ" $
-      lexer "को" `shouldBe` [ka, o]
+      lexer "को" `shouldBe` ['क', 'ओ']
     it "कौ should be क् औ" $
-      lexer "कौ" `shouldBe` [ka, au]
+      lexer "कौ" `shouldBe` ['क', 'औ']
   describe "post-vowel marker" $ do
     it "chandrawindu" $ do
-      lexer "काँच" `shouldBe` [ka, aa, candrawindu, ca, a]
-      lexer "मायाँ" `shouldBe` [ma, aa, ya, aa, candrawindu]
+      lexer "काँच" `shouldBe` ['क', 'आ', 'ँ', 'च', 'अ']
+      lexer "मायाँ" `shouldBe` ['म', 'आ', 'य', 'आ', 'ँ']
     it "anuswar" $ do
-      lexer "कंश" `shouldBe` [ka, a, anuswar, sSha, a]
-      lexer "अंश" `shouldBe` [a, anuswar, sSha, a]
+      lexer "कंश" `shouldBe` ['क', 'अ', 'ं', 'श', 'अ']
+      lexer "अंश" `shouldBe` ['अ', 'ं', 'श', 'अ']
     it "wisarga" $ do
-      lexer "नमः" `shouldBe` [na, a, ma, a, wisarga]
-      lexer "दुःख" `shouldBe` [da, u, wisarga, kha, a]
+      lexer "नमः" `shouldBe` ['न', 'अ', 'म', 'अ', 'ः']
+      lexer "दुःख" `shouldBe` ['द', 'उ', 'ः', 'ख', 'अ']
   describe "unknown tokens" $ do
     it "ash should be U U U" $
-      lexer "ash" `shouldBe` [Unknown 'a', Unknown 's', Unknown 'h']
+      lexer "ash" `shouldBe` ['a', 's', 'h']
     it "क1 should be क् अ U" $
-      lexer "क1" `shouldBe` [ka, a, Unknown '1']
+      lexer "क1" `shouldBe` ['क', 'अ', '1']
   describe "multiline text" $
     it "को\nआयो should be U U U" $
-      multiLineLexer "को\nआयो" `shouldBe` [[ka, o], [aa, ya, o]]
+      multiLineLexer "को\nआयो" `shouldBe` [['क', 'ओ'], ['आ', 'य', 'ओ']]

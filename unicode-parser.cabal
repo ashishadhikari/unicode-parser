@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6a6b01e0121da3fea1ca18a764c31a8c590b5a52a0f6ca3fde3d03da157ca5d4
+-- hash: a4dff053cf85cf79bc97aef99146d8126f48eb120a279179e78fa9b497b8c04a
 
 name:           unicode-parser
 version:        0.1.0.0
@@ -71,7 +71,6 @@ test-suite unicode-parser-test
       AksharaSpec
       ChandaSpec
       GanaSpec
-      WarnaHelper
       WarnaSpec
       Paths_unicode_parser
   hs-source-dirs:

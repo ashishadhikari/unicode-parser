@@ -1,7 +1,6 @@
 module AksharaSpec where
 
 import Test.Hspec
-import WarnaHelper
 import Akshara
 
 
@@ -9,49 +8,49 @@ spec :: Spec
 spec = do
   describe "Akshara simple" $ do
     it "with pre-consonant and vowel" $
-      toAkshara [ka, a] `shouldBe` [Akshara [ka] a Nothing []]
+      toAkshara ['क', 'अ'] `shouldBe` [Akshara ['क'] 'अ' Nothing []]
     it "with pre-consonant, vowel and post-vowel-marker" $
-      toAkshara [ka, aa, candrawindu] `shouldBe` [Akshara [ka] aa (Just candrawindu) []]
+      toAkshara ['क', 'आ', 'ँ'] `shouldBe` [Akshara ['क'] 'आ' (Just 'ँ') []]
     it "with pre-consonant, vowel, post-vowel-marker and post-consonant" $
-      toAkshara [ka, aa, candrawindu, ka, ra, o] `shouldBe` [
-        Akshara [ka] aa (Just candrawindu) [ka],
-        Akshara [ra] o Nothing []
+      toAkshara ['क', 'आ', 'ँ', 'क', 'र', 'ओ'] `shouldBe` [
+        Akshara ['क'] 'आ' (Just 'ँ') ['क'],
+        Akshara ['र'] 'ओ' Nothing []
       ]
   describe "Space" $ do
     it "should be skipped" $
-      toAkshara [la, u, space, ta, a] `shouldBe` [
-        Akshara [la] u Nothing [],
-        Akshara [ta] a Nothing []
+      toAkshara ['ल', 'उ', ' ', 'त', 'अ'] `shouldBe` [
+        Akshara ['ल'] 'उ' Nothing [],
+        Akshara ['त'] 'अ' Nothing []
       ]
   describe "Akshara complex" $ do
     it "marmmanite" $
-      toAkshara [ma, a, ra, ma, ma, aa, nNa, i, ta, e] `shouldBe` [
-        Akshara [ma] a Nothing [ra, ma],
-        Akshara [ma] aa Nothing [],
-        Akshara [nNa] i Nothing [],
-        Akshara [ta] e Nothing []
+      toAkshara ['म', 'अ', 'र', 'म', 'म', 'आ', 'ण', 'इ', 'त', 'ए'] `shouldBe` [
+        Akshara ['म'] 'अ' Nothing ['र', 'म'],
+        Akshara ['म'] 'आ' Nothing [],
+        Akshara ['ण'] 'इ' Nothing [],
+        Akshara ['त'] 'ए' Nothing []
       ]
     it "wwarmmacchadayami" $
-      toAkshara [wa, wa, a, ra, ma, ma, a, nNa, aa, ca, cha, aa, da, a, ya, aa, ma, i] `shouldBe` [
-        Akshara [wa, wa] a Nothing [ra, ma],
-        Akshara [ma] a Nothing [],
-        Akshara [nNa] aa Nothing [ca],
-        Akshara [cha] aa Nothing [],
-        Akshara [da] a Nothing [],
-        Akshara [ya] aa Nothing [],
-        Akshara [ma] i Nothing []
+      toAkshara ['व', 'व', 'अ', 'र', 'म', 'म', 'अ', 'ण', 'आ', 'च', 'छ', 'आ', 'द', 'अ', 'य', 'आ', 'म', 'इ'] `shouldBe` [
+        Akshara ['व', 'व'] 'अ' Nothing ['र', 'म'],
+        Akshara ['म'] 'अ' Nothing [],
+        Akshara ['ण'] 'आ' Nothing ['च'],
+        Akshara ['छ'] 'आ' Nothing [],
+        Akshara ['द'] 'अ' Nothing [],
+        Akshara ['य'] 'आ' Nothing [],
+        Akshara ['म'] 'इ' Nothing []
       ]
   describe "Laghu" $ do
     it "Hraswa vowel" $
-      isLaghu (Akshara [] a Nothing []) `shouldBe` True
+      isLaghu (Akshara [] 'अ' Nothing []) `shouldBe` True
     it "Hraswa vowel with pre-consonant" $
-      isLaghu (Akshara [ka] a Nothing []) `shouldBe` True
+      isLaghu (Akshara ['क'] 'अ' Nothing []) `shouldBe` True
   describe "Deergha" $ do
     it "Deergha vowel" $
-      isGuru (Akshara [] aa Nothing []) `shouldBe` True
+      isGuru (Akshara [] 'आ' Nothing []) `shouldBe` True
     it "Deergha vowel with pre-consonant" $
-      isGuru (Akshara [ka] ii Nothing []) `shouldBe` True
+      isGuru (Akshara ['क'] 'ई' Nothing []) `shouldBe` True
     it "Hraswa vowel with post-vowel marker" $
-      isGuru (Akshara [] a (Just candrawindu) []) `shouldBe` True
+      isGuru (Akshara [] 'अ' (Just 'ँ') []) `shouldBe` True
     it "Hraswa vowel with post-consonant" $
-      isGuru (Akshara [] a Nothing [ca]) `shouldBe` True
+      isGuru (Akshara [] 'अ' Nothing ['च']) `shouldBe` True

@@ -14,51 +14,37 @@ module Warna (
 import qualified Text.Show.Unicode as TSU
 import qualified GHC.Unicode as GhcUnicode
 
-type CodePoint = Int
-
-data Warna
-  = Vowel Char
-  | PostVowelMarker Char
-  | Consonant Char
-  | Space
-  | Unknown Char
-  deriving (Eq)
+type Warna = Char
 
 isSpace :: Warna -> Bool
-isSpace Space = True
-isSpace _ = False
+isSpace c = c == ' '
 
 isVowel :: Warna -> Bool
 isVowel w = any ($w) [isHraswa, isDeergha]
 
 isHraswa :: Warna -> Bool
-isHraswa (Vowel c) = c `elem` "अइउऋ"
-isHraswa _ = False
+isHraswa c = c `elem` "अइउऋ"
 
 isDeergha :: Warna -> Bool
-isDeergha (Vowel c) = c `elem` "आईऊएऐओऔ"
-isDeergha _ = False
+isDeergha c = c `elem` "आईऊएऐओऔ"
 
 isPostVowelMarker :: Warna -> Bool
-isPostVowelMarker (PostVowelMarker c) = case c of
-  'ँ' -> True
-  'ं' -> True
-  'ः' -> True
-  _ -> False
-isPostVowelMarker _ = False
+isPostVowelMarker c = c == 'ँ' || c == 'ं' || c == 'ः'
 
 isConsonant :: Warna -> Bool
-isConsonant (Consonant c)
-  | c < 'क' = False
-  | c <= 'ह' = True
-  | otherwise = False
-isConsonant _ = False
+isConsonant c = c >= 'क' && c <= 'ह'
 
 isHalantaMarker :: Char -> Bool
 isHalantaMarker c = c == '्'
 
 isVowelMarker :: Char -> Bool
 isVowelMarker c = c /= markerToVowel c
+
+isPunctuation :: Char -> Bool
+isPunctuation c = c == ',' || c == '।' || c == '॥'
+
+isNumber :: Char -> Bool
+isNumber c = c >= '०' && c <= '९'
 
 markerToVowel :: Char -> Char
 markerToVowel c = case c of
@@ -74,26 +60,14 @@ markerToVowel c = case c of
   'ौ' -> 'औ'
   c -> c
 
-instance Show Warna where
-  show w = TSU.ushow (toChar w)
-
 toChar :: Warna -> Char
-toChar (Vowel c) = c
-toChar (Consonant c) = c
-toChar (PostVowelMarker c) = c
-toChar Space = ' '
-toChar (Unknown c) = c
+toChar c = c
 
 toChars :: [Warna] -> String
 toChars = map toChar
 
 charToToken :: Char -> Warna
-charToToken c
-  | GhcUnicode.isSpace c = Space
-  | isVowel (Vowel c) = Vowel c
-  | isConsonant (Consonant c) = Consonant c
-  | isPostVowelMarker (PostVowelMarker c) = PostVowelMarker c
-  | otherwise = Unknown c
+charToToken c = c
 
 multiLineLexer :: String -> [[Warna]]
 multiLineLexer multiLineString = map lexer (lines multiLineString)
@@ -101,13 +75,15 @@ multiLineLexer multiLineString = map lexer (lines multiLineString)
 lexer :: String -> [Warna]
 lexer [] = []
 lexer (c:cs)
-      | GhcUnicode.isSpace c = Space : lexer cs
-      | isConsonant (Consonant c) = lexConsonant c cs
+      | GhcUnicode.isSpace c = ' ' : lexer cs
+      | isPunctuation c = lexer cs
+      | isNumber c = lexer cs
+      | isConsonant c = lexConsonant c cs
 lexer (c:cs) = charToToken c : lexer cs
 
 lexConsonant :: Char -> String -> [Warna]
-lexConsonant c [] = [charToToken c, Vowel 'अ']
+lexConsonant c [] = [charToToken c, 'अ']
 lexConsonant c (c':c's)
   | isVowelMarker c' = charToToken c : charToToken (markerToVowel c') : lexer c's
   | isHalantaMarker c' = charToToken c : lexer c's
-  | otherwise = charToToken c : Vowel 'अ' : lexer (c':c's)
+  | otherwise = charToToken c : 'अ' : lexer (c':c's)
