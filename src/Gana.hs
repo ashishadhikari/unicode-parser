@@ -2,6 +2,7 @@ module Gana (
   Matra(..),
   Gana(..),
   toMatra,
+  toMatraSingle,
   toGana,
   matraToChar,
   ganaToChar,
@@ -22,7 +23,9 @@ toMatraSingle a
   | otherwise = G
 
 toMatra :: [Akshara] -> [Matra]
-toMatra = map toMatraSingle
+toMatra [] = []
+toMatra [a] = [G] -- The final matra in a line/sentence is always considered Guru
+toMatra (a:as) = toMatraSingle a : toMatra as
 
 matraToChar :: Matra -> Char
 matraToChar L = 'L'
