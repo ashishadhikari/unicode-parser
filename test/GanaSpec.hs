@@ -46,6 +46,8 @@ spec = do
       stringToGana "गम्" `shouldBe` [Gana G]
     it "last matra should be guru even if it is laghu" $
       stringToGana "लल" `shouldBe` [Gana L, Gana G]
+    it "ignorable chars should be ignored" $
+      stringToGana "लल ॥ १ ॥" `shouldBe` [Gana L, Gana G]
     it "long sentence 1" $
       stringToGana "इच्छा यो छ महेश अन्तिम जसै त्यो मृत्युशैया जली" `shouldBe` [M, S, J, S, T, T, Gana G]
     it "long sentence 2" $

@@ -40,8 +40,11 @@ isHalantaMarker c = c == '्'
 isVowelMarker :: Char -> Bool
 isVowelMarker c = c /= markerToVowel c
 
+isIgnoreChar :: Char -> Bool
+isIgnoreChar c = isPunctuation c || isNumber c || GhcUnicode.isSpace c
+
 isPunctuation :: Char -> Bool
-isPunctuation c = c == ',' || c == '।' || c == '॥'
+isPunctuation c = c == ',' || c == '।' || c == '॥' || c == 'ऽ'
 
 isNumber :: Char -> Bool
 isNumber c = c >= '०' && c <= '९'
@@ -75,11 +78,15 @@ multiLineLexer multiLineString = map lexer (lines multiLineString)
 lexer :: String -> [Warna]
 lexer [] = []
 lexer (c:cs)
-      | GhcUnicode.isSpace c = ' ' : lexer cs
-      | isPunctuation c = lexer cs
-      | isNumber c = lexer cs
+      | isIgnoreChar c = lexIgnore (c:cs)
       | isConsonant c = lexConsonant c cs
 lexer (c:cs) = charToToken c : lexer cs
+
+lexIgnore :: String -> [Warna]
+lexIgnore cs' =
+  case span isIgnoreChar cs' of
+    (cs, []) -> []
+    (cs, rest) -> ' ' : lexer rest
 
 lexConsonant :: Char -> String -> [Warna]
 lexConsonant c [] = [charToToken c, 'अ']

@@ -61,6 +61,9 @@ spec = do
     it "wisarga" $ do
       lexer "नमः" `shouldBe` ['न', 'अ', 'म', 'अ', 'ः']
       lexer "दुःख" `shouldBe` ['द', 'उ', 'ः', 'ख', 'अ']
+  describe "ignorable chars" $ do
+    it "लल ॥ १ ॥" $
+      lexer "लल ॥ १ ॥" `shouldBe` ['ल', 'अ', 'ल', 'अ']
   describe "unknown tokens" $ do
     it "ash should be U U U" $
       lexer "ash" `shouldBe` ['a', 's', 'h']
