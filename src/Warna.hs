@@ -44,7 +44,7 @@ isIgnoreChar :: Char -> Bool
 isIgnoreChar c = isPunctuation c || isNumber c || GhcUnicode.isSpace c
 
 isPunctuation :: Char -> Bool
-isPunctuation c = c == ',' || c == '।' || c == '॥' || c == 'ऽ'
+isPunctuation c = c `elem` ",।॥ऽ-:!@#%&*()\"'/“”‘’\x200C\x200D"
 
 isNumber :: Char -> Bool
 isNumber c = c >= '०' && c <= '९'
