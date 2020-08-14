@@ -43,14 +43,20 @@ spec = do
   describe "Laghu" $ do
     it "Hraswa vowel" $
       isLaghu (Akshara [] 'अ' Nothing []) `shouldBe` True
+    it "Hraswa vowel with candravindu" $
+      isLaghu (Akshara [] 'अ' (Just 'ँ') []) `shouldBe` True
     it "Hraswa vowel with pre-consonant" $
       isLaghu (Akshara ['क'] 'अ' Nothing []) `shouldBe` True
+    it "Hraswa vowel with pre-consonant and candravindu" $
+      isLaghu (Akshara ['क'] 'अ' (Just 'ँ') []) `shouldBe` True
   describe "Deergha" $ do
     it "Deergha vowel" $
       isGuru (Akshara [] 'आ' Nothing []) `shouldBe` True
     it "Deergha vowel with pre-consonant" $
       isGuru (Akshara ['क'] 'ई' Nothing []) `shouldBe` True
-    it "Hraswa vowel with post-vowel marker" $
-      isGuru (Akshara [] 'अ' (Just 'ँ') []) `shouldBe` True
+    it "Hraswa vowel with post-vowel marker anuswar" $
+      isGuru (Akshara [] 'अ' (Just 'ं') []) `shouldBe` True
+    it "Hraswa vowel with post-vowel marker visarga" $
+      isGuru (Akshara [] 'अ' (Just 'ः') []) `shouldBe` True
     it "Hraswa vowel with post-consonant" $
       isGuru (Akshara [] 'अ' Nothing ['च']) `shouldBe` True

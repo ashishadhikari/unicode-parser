@@ -33,6 +33,7 @@ toCodePoints = map fromEnum . toString
 
 isLaghu :: Akshara -> Bool
 isLaghu (Akshara _ v Nothing []) = Warna.isHraswa v
+isLaghu (Akshara _ v (Just 'ँ') []) = Warna.isHraswa v
 isLaghu _ = False
 
 isGuru :: Akshara -> Bool
